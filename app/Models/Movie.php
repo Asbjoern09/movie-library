@@ -11,11 +11,24 @@ class Movie extends Model
 
     protected $movies = 'movies';
 
-    protected $fillable = ['id', 'name', 'imageReference', 'description', 'actors'];
+    protected $fillable = [
+        'title',
+        'imageReference',
+        'duration',
+        'releaseYear',
+        'descriptionShort',
+        'descriptionLong',
+        'directors',
+        'producers',
+        // 'actors',
+        'rating',
+        // Add other fields if necessary
+    ];
 
-    public function actors() {
-        return $this->belongsToMany(Actor::class);
-    }
+    // public function actors() {
+    //     return $this->belongsToMany(Actor::class);
+    // }
+
 
     public function comments() {
         return $this->hasMany(Comment::class, 'movieId');
