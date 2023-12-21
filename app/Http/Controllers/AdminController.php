@@ -7,18 +7,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\Movie;
-use App\Models\Actor;
+use App\Models\Person;
 
 class AdminController extends Controller
 {
     public function show()
     {
         $movies = $this->getMovies();
-        $actors = $this->getActors();
+        $people = $this->getActors();
 
         return View::make('adminPage', [
             'movies' => $movies,
-            'actors' => $actors
+            'people' => $people
         ]);
     }
 
@@ -31,9 +31,9 @@ class AdminController extends Controller
 
     public function getActors()
     {
-        $actors = Actor::all()->toArray();
+        $people = Person::all()->toArray();
 
-        return $actors;
+        return $people;
     }
 
     public function addMovie(Request $request)
