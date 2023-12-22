@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 // Example in web.php or routes/web.php
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/adminPage', [AdminController::class, 'show'])->name('admin.page');
-    Route::post('/adminPage', [AdminController::class, 'addMovie'])->name('admin.page');
+    Route::get('/adminPage', [AdminController::class, 'show'])->name('admin.page.show');
+    Route::get('/editMoviePage/{id}',[AdminController::class,'editMovie'])->name('admin.page.edit');
+    Route::put('/editMoviePage/{id}',[AdminController::class,'updateMovie'])->name('admin.page.update');
+    Route::post('/adminPage', [AdminController::class, 'addMovie'])->name('admin.page.post');
     Route::delete('/adminPage/{id}', [AdminController::class, 'removeMovie'])->name('admin.page');
     // Add other admin-only routes here
 });

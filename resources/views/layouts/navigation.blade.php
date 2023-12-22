@@ -79,8 +79,13 @@
                                 {{ __('Comment History') }}
                             </x-dropdown-link>
                         </form>
-                        
-
+                        @auth
+                        @if(auth()->user()->role === 'admin')
+                        <x-dropdown-link :href="route('admin.page.show')">
+                            {{ __('Admin page') }}
+                        </x-dropdown-link>
+                        @endif
+                        @endauth
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

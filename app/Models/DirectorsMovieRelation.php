@@ -11,6 +11,6 @@ class DirectorsMovieRelation extends Model
 
     protected $table = 'directorsMovieRelations';
 
-    protected $fillable = ['id', 'movieId', 'personId'];
+    protected $fillable = ['id', 'movieId', 'directorId'];
 
 }

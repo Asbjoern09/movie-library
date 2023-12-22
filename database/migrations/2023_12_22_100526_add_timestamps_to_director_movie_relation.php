@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            $table->dropColumn('producers');
+        Schema::table('directorsMovieRelations', function (Blueprint $table) {
+            $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    
+    public function down()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            //
+        Schema::table('directorsMovieRelations', function (Blueprint $table) {
+            $table->dropTimestamps();
         });
     }
 };

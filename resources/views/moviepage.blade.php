@@ -94,7 +94,7 @@
                 <div style="margin-top: 15px; width: 100%"> Actors:
                 <?php foreach ($actors as &$value): ?>
                     <div style="margin-top: 15px; width: 100%;">
-                        <?php $actor = $value[0]; ?>
+                        <?php $actor = $value; ?>
             
                         <div style="float:left; width: 100%;">
                             <img style="float:left; margin-bottom:15px;" width="120px" height="120px" src="{{ asset('pictures/' . $actor['imageReference']) }}"/>

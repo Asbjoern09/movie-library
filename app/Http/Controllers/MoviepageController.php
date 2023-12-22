@@ -19,11 +19,9 @@ class MoviepageController extends Controller
     {
         $movie = Movie::find($id);
         
-        $ActorIds = ActorMovieRelation::where('movieId', $id)->get();
-        $actors = array();
-        foreach ($ActorIds as &$value) {
-            array_push($actors, Person::find($value));
-        }
+        $actorIds = ActorMovieRelation::where('movieId', $id)->pluck('actorId')->toArray();
+        $actors = Person::whereIn('id', $actorIds)->get();
+        // dd($actors);
 
         $DirectorIds = DirectorsMovieRelation::where('movieId', $id)->get();
         $directors = array();

@@ -1,25 +1,59 @@
-<!-- resources/views/movies/form.blade.php -->
-
-<form action="/adminPage" method="post">
+<form action="/adminPage" method="post" class="space-y-4">
     @csrf
-    <label class="text-white" for="title">Title:</label>
-    <input type="text" name="title" required>
-    <br>
-    <label class="text-white" for="imageReference">image</label>
-    <textarea name="imageReference" required></textarea>
-    <br>
-    <label class="text-white" for="duration">duration</label>
-    <textarea name="duration" required></textarea>
-    <br>
-    <label class="text-white" for="releaseYear">release year</label>
-    <textarea name="releaseYear" required></textarea>
-    <br>
-    <label class="text-white" for="descriptionShort">Description short:</label>
-    <textarea name="descriptionShort" required></textarea>
-    <br>
-    <label class="text-white" for="rating">rating</label>
-    <textarea name="rating" required></textarea>
-    <br>
-    <!-- Add form fields for other attributes if necessary -->
-    <button class="text-white" type="submit">Add Movie</button>
+    <div class="flex flex-row">
+    <div class="flex flex-col space-y-2 mr-5">
+        <label class="text-white" for="title">Title:</label>
+        <textarea name="title" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+        <label class="text-white" for="imageReference">Image:</label>
+        <textarea name="imageReference" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+    </div>
+    <div class="flex flex-row">
+    <div class="flex flex-col space-y-2 mr-5">
+        <label class="text-white" for="duration">Duration:</label>
+        <textarea name="duration" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+        <label class="text-white" for="releaseYear">Release Year:</label>
+        <textarea name="releaseYear" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+    </div>
+    <div class="flex flex-row">
+    <div class="flex flex-col space-y-2 mr-5">
+        <label class="text-white" for="descriptionShort">Short Description:</label>
+        <textarea name="descriptionShort" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+        <label class="text-white" for="actors">Actors:</label>
+        <textarea name="actors" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+    </div>
+    <div class="flex flex-row">
+    <div class="flex flex-col space-y-2 mr-5">
+        <label class="text-white" for="directors">Directors:</label>
+        <textarea name="directors" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+        <label class="text-white" for="producers">Producers:</label>
+        <textarea name="producers" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+    </div>
+    <div class="flex flex-row">
+    <div class="flex flex-col space-y-2 mr-5">
+        <label class="text-white" for="rating">Rating:</label>
+        <textarea name="rating" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <div class="flex flex-col space-y-2">
+        <label class="text-white" for="descriptionLong">Long description:</label>
+        <textarea name="descriptionLong" class="p-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+    </div>
+    <x-primary-button type="submit">{{ __('Add movie') }}</x-primary-button>
 </form>
