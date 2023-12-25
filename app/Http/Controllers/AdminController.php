@@ -176,7 +176,7 @@ class AdminController extends Controller
         $movie->rating = $updatedMovie['rating'];
 
         $movie->save();
-        return redirect()->route('admin.page.show'); // Redirect to the admin page after updating
+        return redirect()->route('admin.page.show');
 
     }
 
