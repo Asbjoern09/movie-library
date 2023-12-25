@@ -116,8 +116,56 @@ class AdminController extends Controller
 
     public function updateMovie(Request $request, $id)
     {
-        $updatedMovie= request()->all();
+        $updatedMovie = request()->all();
+        $actorIds = ActorMovieRelation::where('movieId', $id)->pluck('actorId')->toArray();
 
+        $directorIds = DirectorsMovieRelation::where('movieId', $id)->pluck('directorId')->toArray();
+
+        $producerIds = ProducersMovieRelation::where('movieId', $id)->pluck('producerId')->toArray();
+
+        $updatedActorIds = $this->stringToIdArray($updatedMovie['actors']);
+        $updatedDirectorIds = $this->stringToIdArray($updatedMovie['directors']);
+        $updatedProducerIds = $this->stringToIdArray($updatedMovie['producers']);
+
+        
+        $actorIdsToDelete = array_diff($actorIds, $updatedActorIds);
+        $directorIdsToDelete = array_diff($directorIds, $updatedDirectorIds);
+        $producerIdsToDelete = array_diff($producerIds, $updatedProducerIds);
+
+        
+        ActorMovieRelation::where('movieId', $id)->whereIn('actorId', $actorIdsToDelete)->delete();
+        DirectorsMovieRelation::where('movieId', $id)->whereIn('actorId', $directorIdsToDelete)->delete();
+        ProducersMovieRelation::where('movieId', $id)->whereIn('actorId', $producerIdsToDelete)->delete();
+
+        
+        if (!$updatedActorIds[0] == 0) {
+            $updatedActorIds = array_diff($updatedActorIds, $actorIds);
+        
+            foreach ($updatedActorIds as $updatedActorId) {
+                if ($updatedActorId != 0) {
+                    ActorMovieRelation::create(['movieId' => $id, 'actorId' => $updatedActorId]);
+                }
+            }
+        }
+        if (!$updatedDirectorIds[0] == 0) {
+            $updatedDirectorIds = array_diff($updatedDirectorIds, $directorIds);
+        
+            foreach ($updatedDirectorIds as $updatedDirectorId) {
+                if ($updatedDirectorId != 0) {
+                    DirectorsMovieRelation::create(['movieId' => $id, 'directorId' => $updatedDirectorId]);
+                }
+            }
+        }
+        if (!$updatedProducerIds[0] == 0) {
+            $updatedProducerIds = array_diff($updatedProducerIds, $producerIds);
+        
+            foreach ($updatedProducerIds as $updatedProducerId) {
+                if ($updatedProducerId != 0) {
+                    ProducersMovieRelation::create(['movieId' => $id, 'producerId' => $updatedProducerId]);
+                }
+            }
+        }
+        
         $movie = Movie::find($id);
         $movie->title = $updatedMovie['title'];
         $movie->imageReference = $updatedMovie['imageReference'];
@@ -130,5 +178,12 @@ class AdminController extends Controller
         $movie->save();
         return redirect()->route('admin.page.show'); // Redirect to the admin page after updating
 
+    }
+
+    
+    public function stringToIdArray($string){
+        $ids = explode(',', $string);
+        $ids = array_map('intval', $ids);
+        return $ids;
     }
 }
