@@ -20,8 +20,6 @@ return new class extends Migration
      */
     public function down()
     {
-        // If you ever need to rollback, you can define the down method.
-        // In this case, dropping columns added in the up method.
         Schema::table('movies', function (Blueprint $table) {
             $table->dropTimestamps();
         });

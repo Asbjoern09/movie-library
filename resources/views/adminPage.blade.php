@@ -6,11 +6,6 @@
     <h1 class="text-white text-3xl mr-72 ">Movies</h1>
     <div></div>
 </div>
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
 
 
 <x-delete-array :models="$movies"/>
