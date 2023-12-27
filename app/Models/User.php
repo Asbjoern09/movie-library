@@ -43,11 +43,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function isAdmin()
-{
-    return $this->role === 'admin';
-}
-
     public function comments() {
         return $this->hasMany(Comment::class);
     }
