@@ -18,7 +18,7 @@ class AdminUserSeeder extends Seeder
             'name' => 'AdminUser1',
             'email' => 'admin@example.com',
             'password' => Hash::make('Jvpc2010'),
-            'role' => 'admin' //The default role for a user is user
+            'role' => 'admin'
         ]);
     }
 }

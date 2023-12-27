@@ -20,15 +20,9 @@ class Movie extends Model
         'descriptionLong',
         'directors',
         'producers',
-        // 'actors',
+         'actors',
         'rating',
-        // Add other fields if necessary
     ];
-
-    // public function actors() {
-    //     return $this->belongsToMany(Actor::class);
-    // }
-
 
     public function comments() {
         return $this->hasMany(Comment::class, 'movieId');
