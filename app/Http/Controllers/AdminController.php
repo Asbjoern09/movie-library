@@ -50,10 +50,6 @@ class AdminController extends Controller
             'duration' => 'required|string',
             'releaseYear' => 'required|string',
             'descriptionShort' => 'required|string',
-            'descriptionLong' => 'nullable|string',
-            'directors' => 'nullable|string',
-            'producers' => 'nullable|string',
-            'actors' => 'nullable|string',
             'rating' => 'required|string',
         ]);
 
