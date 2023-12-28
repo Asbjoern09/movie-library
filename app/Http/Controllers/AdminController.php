@@ -116,6 +116,7 @@ class AdminController extends Controller
 
 
     // updates the movie when Update button is clicked / Put request is made
+    // add movie info, delete removed people, add added people
     public function updateMovie(Request $request, $id)
     {
         $updatedMovie = request()->all();
@@ -145,20 +146,20 @@ class AdminController extends Controller
         $updatedProducerIds = explode(',',$updatedMovie['producers']);
 
         
-        $actorIdsToDelete = array_diff($actorIds, $updatedActorIds);
-        //  dd($actorIdsToDelete);
-        $directorIdsToDelete = array_diff($directorIds, $updatedDirectorIds);
-        $producerIdsToDelete = array_diff($producerIds, $updatedProducerIds);
+        $deletedActorIds = array_diff($actorIds, $updatedActorIds);
+        //  dd($deletedActorIds);
+        $deletedDirectorIds = array_diff($directorIds, $updatedDirectorIds);
+        $deletedProducerIds = array_diff($producerIds, $updatedProducerIds);
         
-        ActorMovieRelation::where('movieId', $id)->whereIn('actorId', $actorIdsToDelete)->delete();
-        DirectorsMovieRelation::where('movieId', $id)->whereIn('directorId', $directorIdsToDelete)->delete();
-        ProducersMovieRelation::where('movieId', $id)->whereIn('producerId', $producerIdsToDelete)->delete();
+        ActorMovieRelation::where('movieId', $id)->whereIn('actorId', $deletedActorIds)->delete();
+        DirectorsMovieRelation::where('movieId', $id)->whereIn('directorId', $deletedDirectorIds)->delete();
+        ProducersMovieRelation::where('movieId', $id)->whereIn('producerId', $deletedProducerIds)->delete();
 
         
         if (!$updatedActorIds[0] == 0) {
-            $updatedActorIds = array_diff($updatedActorIds, $actorIds);
+            $updatedActorIdsSorted = array_diff($updatedActorIds, $actorIds);
             // dd($updatedActorIds);
-            foreach ($updatedActorIds as $updatedActorIdString) {
+            foreach ($updatedActorIdsSorted as $updatedActorIdString) {
                 $updatedActorId = (int)$updatedActorIdString;
                 if ($updatedActorId != 0) {
                     ActorMovieRelation::create(['movieId' => $id, 'actorId' => $updatedActorId]);
@@ -166,8 +167,8 @@ class AdminController extends Controller
             }
         }
         if (!$updatedDirectorIds[0] == 0) {
-            $updatedDirectorIds = array_diff($updatedDirectorIds, $directorIds);
-            foreach ($updatedDirectorIds as $updatedDirectorIdString) {
+            $updatedDirectorIdsSorted = array_diff($updatedDirectorIds, $directorIds);
+            foreach ($updatedDirectorIdsSorted as $updatedDirectorIdString) {
                 $updatedDirectorId = (int)$updatedDirectorIdString;
                 if ($updatedDirectorId != 0) {
                     DirectorsMovieRelation::create(['movieId' => $id, 'directorId' => $updatedDirectorId]);
@@ -175,8 +176,8 @@ class AdminController extends Controller
             }
         }
         if (!$updatedProducerIds[0] == 0) {
-            $updatedProducerIds = array_diff($updatedProducerIds, $producerIds);
-            foreach ($updatedProducerIds as $updatedProducerIdString) {
+            $updatedProducerIdsSorted = array_diff($updatedProducerIds, $producerIds);
+            foreach ($updatedProducerIdsSorted as $updatedProducerIdString) {
                 $updatedProducerId = (int)$updatedProducerIdString;
                 if ($updatedProducerId != 0) {
                     ProducersMovieRelation::create(['movieId' => $id, 'producerId' => $updatedProducerId]);
